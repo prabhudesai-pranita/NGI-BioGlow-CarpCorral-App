@@ -94,7 +94,6 @@ function render() {
     });
   });
 }
-
 function recordEvent(fish, confidence) {
   const event = {
     time: new Date().toLocaleString(),
@@ -215,3 +214,23 @@ document.querySelectorAll("nav button")
   });
 
 render();
+
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./sw.js")
+      .then(registration => {
+        console.log(
+          "CarpCorral PWA registered:",
+          registration.scope
+        );
+      })
+      .catch(error => {
+        console.error(
+          "Service worker registration failed:",
+          error
+        );
+      });
+  });
+}
