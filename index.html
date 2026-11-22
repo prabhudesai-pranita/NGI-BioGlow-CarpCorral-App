@@ -24,6 +24,8 @@
   <link rel="apple-touch-icon"
         href="./icons/icon-192.png">
 
+  <script type="module" src="./firebase.js"></script>
+
 </head>
 <body>
   <header>
@@ -44,6 +46,65 @@
 
   <main>
     <section id="dashboard" class="page active">
+    
+    <article class="card">
+    <h3>☁️ CarpCorral Live Cloud Dashboard</h3>
+
+    <p>
+        Firebase:
+        <strong id="firebaseStatus">Connecting...</strong>
+    </p>
+
+    <p>
+        System mode:
+        <strong id="liveMode">--</strong>
+    </p>
+
+    <div class="stats">
+        <div class="card stat">
+        <span>Total Fish</span>
+        <strong id="liveTotalCount">0</strong>
+        </div>
+
+        <div class="card stat invasive">
+        <span>Invasive Carp</span>
+        <strong id="liveCarpCount">0</strong>
+        </div>
+
+        <div class="card stat native">
+        <span>Native Fish</span>
+        <strong id="liveNativeCount">0</strong>
+        </div>
+    </div>
+
+    <div class="status-line">
+        <span>Last Fish</span>
+        <strong id="liveFishName">--</strong>
+    </div>
+
+    <div class="status-line">
+        <span>AI Confidence</span>
+        <strong id="liveConfidence">--</strong>
+    </div>
+
+    <div class="status-line">
+        <span>Sorting Gate</span>
+        <strong id="liveGateStatus">--</strong>
+    </div>
+
+    <div class="status-line">
+        <span>Sound</span>
+        <strong id="liveSoundStatus">--</strong>
+    </div>
+
+    <div class="status-line">
+        <span>ESP32</span>
+        <strong id="liveDeviceStatus">--</strong>
+    </div>
+    </article>
+  
+
+
       <div class="heading">
         <div>
           <h2>Control Center</h2>

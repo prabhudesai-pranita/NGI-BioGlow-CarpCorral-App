@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "carpcorral-v1";
+const CACHE_NAME = "carpcorral-v2";
 
 const APP_FILES = [
   "./",
@@ -8,7 +8,8 @@ const APP_FILES = [
   "./script.js",
   "./manifest.webmanifest",
   "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icons/icon-512.png",
+  "./firebase.js"
 ];
 
 self.addEventListener("install", event => {
