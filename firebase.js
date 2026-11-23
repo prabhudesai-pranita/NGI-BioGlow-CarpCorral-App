@@ -170,7 +170,7 @@ document.getElementById("downloadHistory")
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "carpcorral-history.csv";
+    link.download = "carpSORT-history.csv";
     link.click();
     URL.revokeObjectURL(url);
   });

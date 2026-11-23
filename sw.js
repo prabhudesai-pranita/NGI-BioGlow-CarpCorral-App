@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "carpcorral-v2";
+const CACHE_NAME = "carpsort-v2";
 
 const APP_FILES = [
   "./",

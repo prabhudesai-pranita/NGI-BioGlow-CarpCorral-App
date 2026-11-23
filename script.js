@@ -1,5 +1,6 @@
 
-const STORAGE_KEY = "carpcorral_demo_v1";
+const STORAGE_KEY = "carpSORT_demo_v1";
+const LEGACY_STORAGE_KEY = "carpcorral_demo_v1";
 
 function newState() {
   return {
@@ -16,11 +17,22 @@ function newState() {
 let state = newState();
 
 try {
-  const saved = JSON.parse(
-    localStorage.getItem(STORAGE_KEY)
-  );
-  if (saved && Array.isArray(saved.history)) {
-    state = { ...newState(), ...saved };
+  const currentSaved = localStorage.getItem(STORAGE_KEY);
+  const legacySaved = currentSaved === null
+    ? localStorage.getItem(LEGACY_STORAGE_KEY)
+    : null;
+  const saved = currentSaved ?? legacySaved;
+
+  if (saved !== null) {
+    const parsed = JSON.parse(saved);
+    if (parsed && Array.isArray(parsed.history)) {
+      state = { ...newState(), ...parsed };
+
+      if (currentSaved === null) {
+        localStorage.setItem(STORAGE_KEY, saved);
+        localStorage.removeItem(LEGACY_STORAGE_KEY);
+      }
+    }
   }
 } catch (error) {
   console.warn("Starting with fresh demo data");
@@ -155,7 +167,7 @@ if ("serviceWorker" in navigator) {
       .register("./sw.js")
       .then(registration => {
         console.log(
-          "CarpCorral PWA registered:",
+          "CarpSORT PWA registered:",
           registration.scope
         );
       })

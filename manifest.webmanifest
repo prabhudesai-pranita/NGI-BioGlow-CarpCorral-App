@@ -1,8 +1,8 @@
 
 {
   "id": "./",
-  "name": "CarpCorral - NextGen Innovators",
-  "short_name": "CarpCorral",
+  "name": "CarpSORT - NextGen Innovators",
+  "short_name": "CarpSORT",
   "description": "AI-powered invasive carp detection and smart fish sorting by NextGen Innovators.",
   "start_url": "./",
   "scope": "./",
