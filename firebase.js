@@ -4,7 +4,11 @@ import { initializeApp } from
 import {
   getFirestore,
   doc,
-  onSnapshot
+  onSnapshot,
+  collection,
+  query,
+  orderBy,
+  limit
 } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -80,3 +84,93 @@ onSnapshot(
     setText("firebaseStatus", "Connection error");
   }
 );
+
+let liveHistory = [];
+
+const historyQuery = query(
+  collection(db, "detections"),
+  orderBy("detectedAt", "desc"),
+  limit(100)
+);
+
+function renderHistory(message = "No detections yet.") {
+  const tbody = document.getElementById("historyBody");
+  const download = document.getElementById("downloadHistory");
+
+  tbody.replaceChildren();
+  download.disabled = liveHistory.length === 0;
+
+  if (liveHistory.length === 0) {
+    const cell = tbody.insertRow().insertCell();
+    cell.colSpan = 4;
+    cell.textContent = message;
+    return;
+  }
+
+  for (const event of liveHistory) {
+    const row = tbody.insertRow();
+    const confidence = event.confidence == null
+      ? "--"
+      : `${event.confidence}%`;
+
+    for (const value of [event.time, event.fish, confidence, event.gate]) {
+      row.insertCell().textContent = value;
+    }
+  }
+}
+
+renderHistory("Loading detection history…");
+
+onSnapshot(
+  historyQuery,
+  snapshot => {
+    liveHistory = snapshot.docs.map(record => {
+      const data = record.data();
+
+      return {
+        time: data.detectedAt?.toDate().toLocaleString() ?? "--",
+        fish: data.fish ?? "--",
+        confidence: data.confidence ?? null,
+        gate: data.gate ?? "--"
+      };
+    });
+
+    renderHistory();
+  },
+  error => {
+    console.error("Detection history error:", error);
+    liveHistory = [];
+    renderHistory("Could not load detection history.");
+  }
+);
+
+document.getElementById("downloadHistory")
+  .addEventListener("click", () => {
+    const rows = [
+      ["Time", "Fish", "Confidence", "Gate"],
+      ...liveHistory.map(e => [
+        e.time,
+        e.fish,
+        e.confidence ?? "",
+        e.gate
+      ])
+    ];
+
+    const csv = rows.map(row =>
+      row.map(value =>
+        `"${String(value).replace(/"/g, '""')}"`
+      ).join(",")
+    ).join("\r\n");
+
+    const blob = new Blob(
+      [csv],
+      { type: "text/csv;charset=utf-8" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "carpcorral-history.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+  });
