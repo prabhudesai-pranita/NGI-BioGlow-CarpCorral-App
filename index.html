@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +25,108 @@
 
   <script type="module" src="./firebase.js"></script>
 
+  <style>
+    .firebase-center {
+      background: #eaf4f8;
+      color: #15324a;
+      border-radius: 18px;
+      padding: clamp(16px, 3.3vw, 42px);
+      margin-bottom: 32px;
+    }
+
+    .firebase-center .firebase-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin-bottom: clamp(22px, 4vw, 38px);
+    }
+
+    .firebase-center .firebase-heading h2 {
+      margin: 0 0 4px;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      line-height: 1.2;
+      color: inherit;
+    }
+
+    .firebase-center .firebase-heading p {
+      margin: 0;
+      color: #546b7d;
+    }
+
+    .firebase-center .firebase-mode {
+      display: inline-block;
+      border-radius: 10px;
+      padding: 10px 13px;
+      background: #fff0c3;
+      color: #865600;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .firebase-center .firebase-stats,
+    .firebase-center .firebase-details {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .firebase-center .firebase-details {
+      margin-top: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .firebase-center .firebase-card {
+      min-width: 0;
+      padding: clamp(16px, 2.6vw, 26px);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 5px 20px rgba(21, 50, 74, 0.06);
+    }
+
+    .firebase-center .firebase-card h3 {
+      margin: 0 0 12px;
+      color: inherit;
+    }
+
+    .firebase-center .firebase-stat strong {
+      display: block;
+      margin-top: 11px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+
+    .firebase-center .firebase-carp strong { color: #c73535; }
+    .firebase-center .firebase-native strong { color: #148457; }
+
+    .firebase-center #liveFishCapture { margin: 0 0 14px; }
+    .firebase-center #liveFishCapture[hidden] { display: none; }
+
+    .firebase-center #liveFishPhoto {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .firebase-center figcaption {
+      margin-top: 6px;
+      color: #546b7d;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 640px) {
+      .firebase-center .firebase-stats,
+      .firebase-center .firebase-details {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -51,161 +152,149 @@
   <main>
     <section id="dashboard" class="page active">
 
-    <article class="card">
-    <h3>☁️ CarpSort Live Cloud Dashboard</h3>
-
-    <p>
-        Firebase:
-        <strong id="firebaseStatus">Connecting...</strong>
-    </p>
-
-    <p>
-        System mode:
-        <strong id="liveMode">--</strong>
-    </p>
-
-    <div class="stats">
-        <div class="card stat">
-        <span>Total Fish</span>
-        <strong id="liveTotalCount">0</strong>
+      <section class="firebase-center" aria-labelledby="firebase-title">
+        <div class="firebase-heading">
+          <div>
+            <h2 id="firebase-title">Control Center</h2>
+            <p>Monitor our smart fish sorting system</p>
+          </div>
+          <span class="firebase-mode" id="liveMode" aria-label="System mode">--</span>
         </div>
 
-        <div class="card stat invasive">
-        <span>Invasive Carp</span>
-        <strong id="liveCarpCount">0</strong>
+        <div class="firebase-stats">
+          <article class="firebase-card firebase-stat">
+            <span>🐟 Total Fish</span>
+            <strong id="liveTotalCount">0</strong>
+          </article>
+          <article class="firebase-card firebase-stat firebase-carp">
+            <span>🔴 Invasive Carp</span>
+            <strong id="liveCarpCount">0</strong>
+          </article>
+          <article class="firebase-card firebase-stat firebase-native">
+            <span>🟢 Native Fish</span>
+            <strong id="liveNativeCount">0</strong>
+          </article>
         </div>
 
-        <div class="card stat native">
-        <span>Native Fish</span>
-        <strong id="liveNativeCount">0</strong>
+        <div class="firebase-details">
+          <article class="firebase-card">
+            <h3>📷 AI Fish Detection</h3>
+            <figure id="liveFishCapture" hidden>
+              <img id="liveFishPhoto"
+                   alt="Webcam snapshot from the latest accepted fish detection">
+              <figcaption>Latest fish detection</figcaption>
+            </figure>
+            <div class="status-line">
+              <span>Last Fish</span>
+              <strong id="liveFishName">--</strong>
+            </div>
+            <div class="status-line">
+              <span>AI Confidence</span>
+              <strong id="liveConfidence">--</strong>
+            </div>
+          </article>
+          <article class="firebase-card">
+            <h3>⚙️ System Status</h3>
+            <div class="status-line">
+              <span>Firebase</span>
+              <strong id="firebaseStatus">Connecting...</strong>
+            </div>
+            <div class="status-line">
+              <span>Sorting Gate</span>
+              <strong id="liveGateStatus">--</strong>
+            </div>
+            <div class="status-line">
+              <span>Sound</span>
+              <strong id="liveSoundStatus">--</strong>
+            </div>
+            <div class="status-line">
+              <span>ESP32</span>
+              <strong id="liveDeviceStatus">--</strong>
+            </div>
+          </article>
         </div>
-    </div>
+      </section>
 
-    <figure id="liveFishCapture" hidden>
-      <img
-        id="liveFishPhoto"
-        alt="Webcam snapshot from the latest accepted fish detection"
-        style="display: block; width: 100%; max-width: 420px;
-              height: auto; border-radius: 10px;"
-      >
-      <figcaption>Latest fish detection</figcaption>
-    </figure>
-
-    <figure id="liveFishCapture" hidden>
-      <img
-        id="liveFishPhoto"
-        alt="Webcam snapshot of the latest detected carp"
-        style="display: block; width: 100%; max-width: 420px;
-              height: auto; border-radius: 10px;"
-      >
-      <figcaption>Latest carp detection</figcaption>
-    </figure>
-    <div class="status-line">
-        <span>Last Fish</span>
-        <strong id="liveFishName">--</strong>
-    </div>
-
-    <div class="status-line">
-        <span>AI Confidence</span>
-        <strong id="liveConfidence">--</strong>
-    </div>
-
-    <div class="status-line">
-        <span>Sorting Gate</span>
-        <strong id="liveGateStatus">--</strong>
-    </div>
-
-    <div class="status-line">
-        <span>Sound</span>
-        <strong id="liveSoundStatus">--</strong>
-    </div>
-
-    <div class="status-line">
-        <span>ESP32</span>
-        <strong id="liveDeviceStatus">--</strong>
-    </div>
-    </article>
-
-
-
-      <div class="heading">
-        <div>
-          <h2>Control Center</h2>
-          <p>Monitor our smart fish sorting system</p>
+      <div hidden>
+        <div class="heading">
+          <div>
+            <h2>Demo Control Center</h2>
+            <p>Monitor our smart fish sorting system</p>
+          </div>
+          <span class="demo-label">DEMO MODE</span>
         </div>
-        <span class="demo-label">DEMO MODE</span>
-      </div>
 
-      <div class="stats">
-        <article class="card stat">
-          <span>🐟 Total Fish</span>
-          <strong id="totalCount">0</strong>
-        </article>
-        <article class="card stat invasive">
-          <span>🔴 Invasive Carp</span>
-          <strong id="carpCount">0</strong>
-        </article>
-        <article class="card stat native">
-          <span>🟢 Native Fish</span>
-          <strong id="nativeCount">0</strong>
-        </article>
-      </div>
+        <div class="stats">
+          <article class="card stat">
+            <span>🐟 Total Fish</span>
+            <strong id="totalCount">0</strong>
+          </article>
+          <article class="card stat invasive">
+            <span>🔴 Invasive Carp</span>
+            <strong id="carpCount">0</strong>
+          </article>
+          <article class="card stat native">
+            <span>🟢 Native Fish</span>
+            <strong id="nativeCount">0</strong>
+          </article>
+        </div>
 
-      <div class="columns">
-        <article class="card">
-          <h3>📷 AI Fish Detection</h3>
-          <div class="fish-display">
-            <span class="fish-icon">🐟</span>
-            <h2 id="fishName">Waiting for fish</h2>
-            <p id="confidence">Confidence: --</p>
-          </div>
-          <p class="hint">
-            Simulate the AI identifying a fish:
-          </p>
-          <div class="actions">
-            <button id="detectCarp" class="danger">
-              Detect Invasive Carp
-            </button>
-            <button id="detectNative" class="success">
-              Detect Native Fish
-            </button>
-            <button id="detectUnknown" class="secondary">
-              Unknown Fish
-            </button>
-          </div>
-        </article>
+        <div class="columns">
+          <article class="card">
+            <h3>📷 AI Fish Detection</h3>
+            <div class="fish-display">
+              <span class="fish-icon">🐟</span>
+              <h2 id="fishName">Waiting for fish</h2>
+              <p id="confidence">Confidence: --</p>
+            </div>
+            <p class="hint">
+              Simulate the AI identifying a fish:
+            </p>
+            <div class="actions">
+              <button id="detectCarp" class="danger">
+                Detect Invasive Carp
+              </button>
+              <button id="detectNative" class="success">
+                Detect Native Fish
+              </button>
+              <button id="detectUnknown" class="secondary">
+                Unknown Fish
+              </button>
+            </div>
+          </article>
 
-        <article class="card">
-          <h3>⚙️ System Status</h3>
-          <div class="status-line">
-            <span>Application</span>
-            <strong class="online">● Online</strong>
-          </div>
-          <div class="status-line">
-            <span>ESP32 Device</span>
-            <strong id="deviceStatus">Not connected</strong>
-          </div>
-          <div class="status-line">
-            <span>Sorting Gate</span>
-            <strong id="gateStatus">NEUTRAL</strong>
-          </div>
-          <div class="status-line">
-            <span>Sound System</span>
-            <strong id="soundStatus">OFF</strong>
-          </div>
-          <div class="status-line">
-            <span>Last Detection</span>
-            <strong id="lastDetection">None</strong>
-          </div>
+          <article class="card">
+            <h3>⚙️ System Status</h3>
+            <div class="status-line">
+              <span>Application</span>
+              <strong class="online">● Online</strong>
+            </div>
+            <div class="status-line">
+              <span>ESP32 Device</span>
+              <strong id="deviceStatus">Not connected</strong>
+            </div>
+            <div class="status-line">
+              <span>Sorting Gate</span>
+              <strong id="gateStatus">NEUTRAL</strong>
+            </div>
+            <div class="status-line">
+              <span>Sound System</span>
+              <strong id="soundStatus">OFF</strong>
+            </div>
+            <div class="status-line">
+              <span>Last Detection</span>
+              <strong id="lastDetection">None</strong>
+            </div>
 
-          <h3>🎛️ Demo Controls</h3>
-          <div class="actions">
-            <button id="soundToggle">Toggle Sound</button>
-            <button id="resetGate" class="secondary">
-              Reset Gate
-            </button>
-          </div>
-        </article>
+            <h3>🎛️ Demo Controls</h3>
+            <div class="actions">
+              <button id="soundToggle">Toggle Sound</button>
+              <button id="resetGate" class="secondary">
+                Reset Gate
+              </button>
+            </div>
+          </article>
+        </div>
       </div>
 
       <article class="card">
@@ -313,11 +402,6 @@
             <strong>Live Cloud Dashboard.</strong> View the fish counts, latest
             identification, AI confidence, and system status reported through
             Firebase.
-          </li>
-          <li>
-            <strong>Demo Control Center.</strong> Try simulated invasive carp,
-            native fish, and unknown detections to see how the dashboard
-            responds.
           </li>
           <li>
             <strong>Activity History.</strong> Review detection events and
