@@ -1,4 +1,3 @@
-
 import { initializeApp } from
   "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 
@@ -8,7 +7,6 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-// Replace these values with YOUR Firebase config.
 const firebaseConfig = {
   apiKey: "AIzaSyDJJrFRjgR6iojV7wyHqH1W9fyZZYnvg_Q",
   authDomain: "ngi-bioglow-carpcorral.firebaseapp.com",
@@ -21,18 +19,34 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 const liveRef = doc(db, "system", "live");
 
-const connectionLabel =
-  document.getElementById("firebaseStatus");
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
+function displayFishPhoto(imageUrl) {
+  const capture = document.getElementById("liveFishCapture");
+  const photo = document.getElementById("liveFishPhoto");
+
+  if (!capture || !photo) return;
+
+  const hasPhoto =
+    typeof imageUrl === "string" &&
+    imageUrl.startsWith("data:image/jpeg;base64,") &&
+    imageUrl.length > "data:image/jpeg;base64,".length;
+
+  if (hasPhoto) {
+    photo.src = imageUrl;
+    capture.hidden = false;
+  } else {
+    capture.hidden = true;
+    photo.removeAttribute("src");
+  }
+}
 
 function displayLiveData(data) {
-  const setText = (id, value) => {
-    const element = document.getElementById(id);
-    if (element) element.textContent = value;
-  };
-
   const carp = data.carpCount ?? 0;
   const native = data.nativeCount ?? 0;
 
@@ -40,29 +54,29 @@ function displayLiveData(data) {
   setText("liveNativeCount", native);
   setText("liveTotalCount", carp + native);
   setText("liveFishName", data.lastFish ?? "None");
-  setText("liveConfidence",
-    `Confidence: ${data.confidence ?? 0}%`);
+  setText("liveConfidence", `Confidence: ${data.confidence ?? 0}%`);
   setText("liveGateStatus", data.gate ?? "NEUTRAL");
-  setText("liveSoundStatus",
-    data.sound ? "ON" : "OFF");
-  setText("liveDeviceStatus",
-    data.deviceConnected ? "Connected" : "Offline");
+  setText("liveSoundStatus", data.sound ? "ON" : "OFF");
+  setText("liveDeviceStatus", data.deviceConnected ? "Connected" : "Offline");
   setText("liveMode", data.mode ?? "UNKNOWN");
+
+  displayFishPhoto(data.lastFishImage);
 }
 
 onSnapshot(
   liveRef,
   snapshot => {
     if (!snapshot.exists()) {
-      connectionLabel.textContent = "No live data";
+      displayLiveData({});
+      setText("firebaseStatus", "No live data");
       return;
     }
 
     displayLiveData(snapshot.data());
-    connectionLabel.textContent = "Cloud connected";
+    setText("firebaseStatus", "Cloud connected");
   },
   error => {
     console.error("Firebase error:", error);
-    connectionLabel.textContent = "Connection error";
+    setText("firebaseStatus", "Connection error");
   }
 );
