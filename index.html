@@ -228,29 +228,87 @@
       </article>
     </section>
 
-    <section id="about" class="page">
+   <section id="about" class="page">
       <h2>About CarpSort</h2>
+
       <article class="card">
         <h3>Our Mission</h3>
         <p>
-          CarpSort is an FLL innovation project
-          exploring how AI, sound, and automated
-          sorting could help manage invasive carp
-          while protecting native fish.
+          CarpSort is a FIRST LEGO League BioGlow innovation project by the
+          NextGen Innovators. We’re exploring how a camera, AI, and a sorting
+          gate could help separate invasive carp from native fish in the
+          Illinois River.
         </p>
-        <h3>Our Technology</h3>
+
+        <h3>The Problem We’re Solving</h3>
         <p>
-          Our prototype uses a webcam, a Python AI
-          model, an ESP32 microcontroller, a servo
-          sorting gate, and a sound system.
+          Our project focuses on invasive silver and bighead carp. We asked:
+          How could we identify these fish as they pass through a system and
+          give native fish a route back to the river?
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>How Our Prototype Works</h3>
+        <ol>
+          <li>
+            <strong>Capture an image.</strong> A webcam sends images to a laptop
+            running our Python program.
+          </li>
+          <li>
+            <strong>Identify the fish.</strong> Our AI model predicts whether
+            the image shows invasive carp, a native fish, or something it
+            cannot confidently identify.
+          </li>
+          <li>
+            <strong>Sort the fish.</strong> The laptop sends a command to an
+            ESP32 microcontroller. The ESP32 moves the gate in our tabletop
+            model to demonstrate separate paths for carp and native fish.
+          </li>
+          <li>
+            <strong>Respond to carp.</strong> Our design uses carp detection
+            as the trigger for sound. We’re exploring whether sound could
+            help guide carp toward the sorting area.
+          </li>
+        </ol>
+
+        <h3>What We Changed After Testing</h3>
+        <p>
+          We started by building a gate that could switch between two exits.
+          Then we added a camera and trained the AI to recognize invasive carp
+          and native fish. During testing, the model sometimes labeled native
+          fish as invasive carp. That gave us a specific improvement to work
+          on: retraining the model and checking how it handles uncertain images.
         </p>
         <p>
-          This web application currently runs in
-          demonstration mode. Its controls do not
-          operate real hardware.
+          Our tabletop prototype demonstrates the sorting sequence. A river
+          version would need further testing, including how the camera performs
+          in cloudy water and how fish respond to the sound.
         </p>
-        <h3>Our Team</h3>
-        <p>NextGen Innovators — FLL Team #40161</p>
+      </article>
+
+      <article class="card">
+        <h3>Explore the Dashboard</h3>
+        <ul>
+          <li>
+            <strong>Live Cloud Dashboard.</strong> View the fish counts, latest
+            identification, AI confidence, and system status reported through
+            Firebase.
+          </li>
+          <li>
+            <strong>Demo Control Center.</strong> Try simulated invasive carp,
+            native fish, and unknown detections to see how the dashboard
+            responds.
+          </li>
+          <li>
+            <strong>Activity History.</strong> Review detection events and
+            download the history as a CSV file.
+          </li>
+        </ul>
+
+        <h3>Meet the Team</h3>
+        <p><strong>NextGen Innovators · FLL Team #40161</strong></p>
+        <p><a href="https://ngirobotics.com/">Visit the NextGen Innovators website</a></p>
       </article>
     </section>
   </main>
