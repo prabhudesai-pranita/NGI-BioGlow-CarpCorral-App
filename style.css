@@ -200,3 +200,19 @@ footer {
   .steps { grid-template-columns: repeat(2, 1fr); }
   header { padding: 20px; }
 }
+
+header .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  text-align: left;
+}
+
+.brand-logo {
+  display: block;
+  width: clamp(48px, 10vw, 76px);
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
