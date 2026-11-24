@@ -7,8 +7,8 @@ const APP_FILES = [
   "./style.css",
   "./script.js",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
+  "./icons/carpsort-icon-192.png ",
+  "./icons/carpsort-icon-512.png",
   "./firebase.js"
 ];
 
