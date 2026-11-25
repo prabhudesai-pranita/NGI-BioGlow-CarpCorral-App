@@ -229,10 +229,141 @@
               <span>Sound</span>
               <strong id="liveSoundStatus">--</strong>
             </div>
+           
             <div class="status-line">
               <span>ESP32</span>
               <strong id="liveDeviceStatus">--</strong>
             </div>
+            </article>
+            </div>
+
+            <!-- =====================================
+                LIVE ACOUSTIC HERDING CONTROL
+                ===================================== -->
+
+            <article class="firebase-card acoustic-card">
+
+              <div class="acoustic-header">
+
+                <div>
+                  <h3>🔊 Acoustic Herding Control</h3>
+
+                  <p>
+                    Control the CarpSORT prototype's
+                    sound-based guidance system.
+                  </p>
+                </div>
+
+                <span id="acousticStatus"
+                      class="acoustic-status"
+                      aria-live="polite">
+                  UNKNOWN
+                </span>
+
+              </div>
+
+              <!-- Sound visualization -->
+
+              <div class="acoustic-visual">
+
+                <svg id="acousticWave"
+                    class="acoustic-wave"
+                    viewBox="0 0 320 70"
+                    aria-hidden="true">
+
+                  <line x1="0" y1="15"
+                        x2="320" y2="15"
+                        class="wave-grid" />
+
+                  <line x1="0" y1="35"
+                        x2="320" y2="35"
+                        class="wave-grid" />
+
+                  <line x1="0" y1="55"
+                        x2="320" y2="55"
+                        class="wave-grid" />
+
+                  <path class="wave-flat"
+                        d="M0 35 H320" />
+
+                  <path class="wave-active"
+                        d="M0 35
+                          Q10 0 20 35
+                          T40 35 T60 35
+                          T80 35 T100 35
+                          T120 35 T140 35
+                          T160 35 T180 35
+                          T200 35 T220 35
+                          T240 35 T260 35
+                          T280 35 T300 35
+                          T320 35" />
+
+                </svg>
+
+                <!-- Sound parameters -->
+
+                <div class="acoustic-details">
+
+                  <div>
+                    <span>Frequency</span>
+                    <strong>500 Hz</strong>
+                  </div>
+
+                  <div>
+                    <span>Volume Setting</span>
+                    <strong>25 / 30</strong>
+                  </div>
+
+                  <div>
+                    <span>Playback Mode</span>
+                    <strong>Continuous</strong>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- Hardware control buttons -->
+
+              <div class="acoustic-actions">
+
+                <button id="startSoundBtn"
+                        type="button"
+                        class="acoustic-start"
+                        disabled>
+                  🔊 START SOUND
+                </button>
+
+                <button id="stopSoundBtn"
+                        type="button"
+                        class="acoustic-stop"
+                        disabled>
+                  🔇 STOP SOUND
+                </button>
+
+              </div>
+
+              <!-- Live command feedback -->
+
+              <p id="acousticMessage"
+                class="acoustic-message"
+                aria-live="polite">
+                Connecting to sound controller...
+              </p>
+
+              <p class="acoustic-note">
+                Sound-based fish guidance is being
+                evaluated through prototype testing.
+              </p>
+
+            </article>
+
+            <!-- END ACOUSTIC HERDING CONTROL -->
+
+            </section>
+
+            <div hidden>
+
           </article>
         </div>
       </section>
@@ -348,7 +479,10 @@
         </div>
 
         <p class="prototype-note">
-          Sound-based guidance is currently under development.
+          Our prototype integrates acoustic guidance,
+          AI-powered fish recognition and automated sorting.
+          Sound-based guidance effectiveness requires
+          further real-world testing.
         </p>
 
       </article>
@@ -439,11 +573,15 @@
         </ul>
 
         <p>
-          Our tabletop prototype demonstrates
-          AI-based fish identification and
-          automated sorting. Sound-based fish
-          guidance is the next stage of our
-          prototype development.
+          Our tabletop prototype integrates
+          AI-based fish identification,
+          automated sorting and a controllable
+          acoustic guidance system.
+
+          The sound system can be activated
+          or stopped through our live cloud
+          dashboard once connected to the
+          prototype hardware.
         </p>
 
         <div class="project-slogan">
@@ -471,9 +609,12 @@
             model to demonstrate separate paths for carp and native fish.
           </li>
           <li>
-            <strong>Respond to carp.</strong> Our design uses carp detection
-            as the trigger for sound. We’re exploring whether sound could
-            help guide carp toward the sorting area.
+            <strong>Guide using sound.</strong>
+            The acoustic guidance system plays a
+            continuous 500 Hz sound when activated
+            from the CarpSORT dashboard.
+            We are exploring how sound could help
+            guide invasive carp toward the sorting area.
           </li>
         </ol>
 

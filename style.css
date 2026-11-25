@@ -405,5 +405,269 @@ footer {
 #about .card a {
     color: #087bb8;
     font-weight: 600;
-} 
+}
+
+
+/* =========================================
+   CarpSORT Acoustic Herding Control
+   ========================================= */
+
+.firebase-center .acoustic-card {
+    margin-top: 16px;
+    border: 1px solid #d3e5ef;
+}
+
+/* Panel heading */
+
+.acoustic-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.firebase-center .acoustic-header h3 {
+    color: #06385e;
+    font-size: 1.25rem;
+    margin: 0 0 6px;
+}
+
+.acoustic-header p {
+    color: #60788a;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Sound status indicator */
+
+.acoustic-status {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: #e5e7eb;
+    color: #475569;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.acoustic-status.active {
+    background: #dcfce7;
+    color: #168653;
+}
+
+.acoustic-status.inactive {
+    background: #f1f5f9;
+    color: #60788a;
+}
+
+.acoustic-status.pending {
+    background: #fff0c7;
+    color: #8a5900;
+}
+
+.acoustic-status.error {
+    background: #fee2e2;
+    color: #b9343e;
+}
+
+/* Sound visualization area */
+
+.acoustic-visual {
+    background: #edf6fb;
+    border: 1px solid #dcebf4;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+/* Sound waveform */
+
+.acoustic-wave {
+    display: block;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.wave-grid {
+    stroke: #cbdce8;
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.wave-flat,
+.wave-active {
+    stroke: #087bb8;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.wave-active {
+    display: none;
+}
+
+.acoustic-wave.playing .wave-flat {
+    display: none;
+}
+
+.acoustic-wave.playing .wave-active {
+    display: block;
+    animation: acoustic-pulse 1s ease-in-out infinite;
+}
+
+@keyframes acoustic-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+}
+
+/* Frequency, volume and playback details */
+
+.acoustic-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.acoustic-details > div {
+    text-align: center;
+    padding: 14px 8px;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.acoustic-details span {
+    display: block;
+    color: #60788a;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+}
+
+.acoustic-details strong {
+    display: block;
+    color: #06385e;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* Start and Stop buttons */
+
+.acoustic-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.acoustic-actions button {
+    width: 100%;
+    padding: 16px 12px;
+    min-height: 52px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: filter 0.2s ease;
+}
+
+.acoustic-start {
+    background: #168653;
+    color: #ffffff;
+}
+
+.acoustic-stop {
+    background: #b9343e;
+    color: #ffffff;
+}
+
+.acoustic-actions button:hover:not(:disabled) {
+    filter: brightness(0.9);
+}
+
+.acoustic-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Command feedback */
+
+.acoustic-message {
+    color: #06385e;
+    background: #edf6fb;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 15px 0 0;
+}
+
+.acoustic-note {
+    color: #60788a;
+    font-size: 0.8rem;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.5;
+    margin: 12px 0 0;
+}
+
+/* Mobile responsive sound panel */
+
+@media (max-width: 640px) {
+
+    .acoustic-header {
+        gap: 10px;
+    }
+
+    .acoustic-visual {
+        padding: 12px;
+    }
+
+    .acoustic-details {
+        gap: 6px;
+    }
+
+    .acoustic-details > div {
+        padding: 12px 5px;
+    }
+
+    .acoustic-details span {
+        font-size: 0.7rem;
+    }
+
+    .acoustic-details strong {
+        font-size: 0.95rem;
+    }
+
+    .acoustic-actions {
+        gap: 8px;
+    }
+
+    .acoustic-actions button {
+        font-size: 0.8rem;
+        padding: 14px 8px;
+    }
+
+    .acoustic-wave {
+        height: 60px;
+    }
+}
+
+/* Accessibility: reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .acoustic-wave.playing .wave-active {
+        animation: none;
+    }
+}
+
 
